@@ -1,0 +1,94 @@
+
+======================================================================
+ A) Página do produto: dados + especificações + 3 últimas avaliações em 1 leitura
+======================================================================
+{
+  sku: 'CEL-004',
+  nome: 'iPhone 16 Apple 128GB',
+  categoria: 'celular',
+  marca: 'Apple',
+  preco: 5999,
+  estoque: 12,
+  descricao: 'Chip A18, botão de Ação e Controle da Câmera.',
+  tags: [ 'smartphone', 'ios', '5g', 'premium', 'frete-gratis' ],
+  especificacoes: {
+    armazenamentoGB: 128,
+    ramGB: 8,
+    telaPolegadas: 6.1,
+    bateriaMah: 3561,
+    cameraMP: 48,
+    suporta5G: true,
+    cores: [ 'Preto', 'Branco', 'Ultramarino' ]
+  },
+  avaliacoes: [
+    {
+      clienteId: 'C013',
+      cliente: 'Natália Ribeiro',
+      nota: 5,
+      comentario: 'Câmera incrível pra vídeo.',
+      data: 2026-06-30T00:00:00.000Z
+    },
+    {
+      clienteId: 'C012',
+      cliente: 'Marcos Vinícius Dias',
+      nota: 3,
+      comentario: 'Carregador não vem na caixa.',
+      data: 2026-08-08T00:00:00.000Z
+    },
+    {
+      clienteId: 'C007',
+      cliente: 'Gabriela Nunes',
+      nota: 5,
+      comentario: 'Recomendo demais.',
+      data: 2026-10-12T00:00:00.000Z
+    }
+  ],
+  resumoAvaliacoes: { media: 4.4, total: 5 }
+}
+
+   → documentos lidos: 1 | chaves de índice lidas: 1 | tempo: 0 ms | JOINs: 0
+
+======================================================================
+ B) Cliente avalia o iPhone 16: entra a avaliação E a média é recalculada
+======================================================================
+ANTES:
+{ nome: 'iPhone 16 Apple 128GB', resumoAvaliacoes: { media: 4.4, total: 5 } }
+
+updateOne → modificados: 1
+DEPOIS:
+{
+  nome: 'iPhone 16 Apple 128GB',
+  avaliacoes: [
+    {
+      clienteId: 'C010',
+      cliente: 'João Pedro Barbosa',
+      nota: 2,
+      comentario: 'Esquentou muito carregando, esperava mais pelo preço.',
+      data: 2026-11-02T16:42:22.968Z
+    }
+  ],
+  resumoAvaliacoes: { media: 4, total: 6 }
+}
+
+Mesmo cliente tentando avaliar de novo → modificados: 0 (bloqueado pelo filtro)
+
+======================================================================
+ C) Esquema flexível, mas com regra: avaliação com nota 7 é recusada
+======================================================================
+   ✘ Recusado pelo banco: Document failed validation
+   → a validação $jsonSchema exige nota inteira entre 1 e 5
+
+======================================================================
+ D) Categoria nova (fone de ouvido) sem ALTER TABLE e sem tabela nova
+======================================================================
+Mesma coleção, formatos diferentes de 'especificacoes':
+
+CEL-006 (celular) → campos: armazenamentoGB, ramGB, telaPolegadas, bateriaMah, cameraMP, suporta5G, cores
+
+FON-001 (fone de ouvido) → campos: tipo, conexao, bateriaHoras, cancelamentoRuido, microfone, cores
+
+LIV-008 (livro) → campos: autores, editora, paginas, anoPublicacao, idioma, genero, formato
+
+ROU-009 (roupa) → campos: genero, material, cores, grade
+
+(exemplo FON-001 removido para manter a carga original)

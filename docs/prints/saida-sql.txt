@@ -1,0 +1,34 @@
+======================================================================
+ Q1 (SQL). Celulares 5G com 8GB+ de RAM até R$ 3.000
+======================================================================
+                     nome                     |  preco  | armazenamento_gb | ram_gb 
+----------------------------------------------+---------+------------------+--------
+ Smartphone Motorola Moto G85 5G 256GB        | 1699.00 |              256 |      8
+ Smartphone Motorola Edge 50 Fusion 256GB     | 2199.00 |              256 |      8
+ Smartphone Samsung Galaxy A56 5G 128GB       | 2299.00 |              128 |      8
+ Smartphone Xiaomi Redmi Note 14 Pro 5G 256GB | 2499.00 |              256 |      8
+ Smartphone Xiaomi Poco X7 Pro 512GB          | 2899.00 |              512 |     12
+(5 rows)
+
+======================================================================
+ Q4 (SQL). Top 5 mais bem avaliados (pelo menos 3 avaliações)
+======================================================================
+                 nome                  | categoria | media | total 
+---------------------------------------+-----------+-------+-------
+ Calça Legging Fitness Track&Field     | roupa     |  5.00 |     3
+ Entendendo Algoritmos                 | livro     |  5.00 |     3
+ 1984                                  | livro     |  4.75 |     4
+ Smartphone Motorola Moto G85 5G 256GB | celular   |  4.75 |     4
+ Smartphone Samsung Galaxy S25 256GB   | celular   |  4.75 |     4
+(5 rows)
+
+======================================================================
+ EXTRA (SQL). Página do produto CEL-004 (o "ponto forte" do MongoDB)
+======================================================================
+   sku   |         nome          | marca |  preco  | estoque | armazenamento_gb | ram_gb | tela_polegadas | suporta_5g |           cores            |             tags             |       cliente        | nota |          comentario          |    data    
+---------+-----------------------+-------+---------+---------+------------------+--------+----------------+------------+----------------------------+------------------------------+----------------------+------+------------------------------+------------
+ CEL-004 | iPhone 16 Apple 128GB | Apple | 5999.00 |      12 |              128 |      8 |           6.10 | t          | Preto, Branco, Ultramarino | smartphone, ios, 5g, premium | Gabriela Nunes       |    5 | Recomendo demais.            | 2026-10-12
+ CEL-004 | iPhone 16 Apple 128GB | Apple | 5999.00 |      12 |              128 |      8 |           6.10 | t          | Preto, Branco, Ultramarino | smartphone, ios, 5g, premium | Marcos Vinícius Dias |    3 | Carregador não vem na caixa. | 2026-08-08
+ CEL-004 | iPhone 16 Apple 128GB | Apple | 5999.00 |      12 |              128 |      8 |           6.10 | t          | Preto, Branco, Ultramarino | smartphone, ios, 5g, premium | Natália Ribeiro      |    5 | Câmera incrível pra vídeo.   | 2026-06-30
+(3 rows)
+
