@@ -1,0 +1,99 @@
+
+======================================================================
+ 1. INSERIR — insertOne de um celular novo
+======================================================================
+InsertOneResult { acknowledged: true, insertedId: ObjectId('6ae8bd6c5ab9f6ef80398628') }
+
+======================================================================
+ 2. INSERIR — insertMany (livro com um campo que nenhum outro tem)
+======================================================================
+InsertManyResult {
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6ae8bd6c5ab9f6ef80398629') }
+}
+
+======================================================================
+ 3. CONSULTAR — findOne pelo SKU (só alguns campos)
+======================================================================
+{
+  sku: 'CEL-011',
+  nome: 'Smartphone Samsung Galaxy Z Flip6 256GB',
+  preco: 5499,
+  estoque: 7,
+  especificacoes: { ramGB: 12, dobravel: true }
+}
+
+======================================================================
+ 4. CONSULTAR — find: livros de tecnologia até R$ 100, mais baratos primeiro
+======================================================================
+┌─────────┬───────────┬────────────────────────────────────────────────────────────┬───────┐
+│ (index) │ sku       │ nome                                                       │ preco │
+├─────────┼───────────┼────────────────────────────────────────────────────────────┼───────┤
+│ 0       │ 'LIV-008' │ 'NoSQL Essencial'                                          │ 69.9  │
+│ 1       │ 'LIV-006' │ 'Entendendo Algoritmos'                                    │ 74.9  │
+│ 2       │ 'LIV-013' │ 'MongoDB: Construa Novas Aplicações com Novas Tecnologias' │ 79.9  │
+│ 3       │ 'LIV-005' │ 'Código Limpo: Habilidades Práticas do Agile Software'     │ 89.9  │
+└─────────┴───────────┴────────────────────────────────────────────────────────────┴───────┘
+
+======================================================================
+ 5. ATUALIZAR — updateOne: baixa o preço e repõe estoque do Z Flip6
+======================================================================
+UpdateResult {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+{
+  sku: 'CEL-011',
+  preco: 4999,
+  estoque: 12,
+  tags: [ 'smartphone', 'android', '5g', 'dobravel', 'promocao' ]
+}
+
+======================================================================
+ 6. ATUALIZAR — updateOne dentro do array: +3 camisetas no tamanho M
+======================================================================
+UpdateResult {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+{
+  sku: 'ROU-001',
+  especificacoes: {
+    grade: [
+      { tamanho: 'P', qtd: 20 },
+      { tamanho: 'M', qtd: 38 },
+      { tamanho: 'G', qtd: 28 },
+      { tamanho: 'GG', qtd: 10 }
+    ]
+  },
+  estoque: 96
+}
+
+======================================================================
+ 7. ATUALIZAR — updateMany: frete grátis para produtos de R$ 299 ou mais
+======================================================================
+UpdateResult {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 16,
+  modifiedCount: 16,
+  upsertedCount: 0
+}
+
+======================================================================
+ 8. EXCLUIR — deleteOne do Z Flip6 inserido no passo 1
+======================================================================
+DeleteResult { acknowledged: true, deletedCount: 1 }
+
+======================================================================
+ 9. EXCLUIR — deleteMany de todos os e-books
+======================================================================
+DeleteResult { acknowledged: true, deletedCount: 1 }
+
+Total de produtos no catálogo agora: 32
