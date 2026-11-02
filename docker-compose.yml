@@ -1,0 +1,46 @@
+services:
+  # ---------------------------------------------------------------
+  # MongoDB: banco principal do trabalho (tipo Documentos)
+  # Na PRIMEIRA subida ele executa os scripts da pasta ./init
+  # (criação da coleção com validação + índices + carga de dados).
+  # ---------------------------------------------------------------
+  mongo:
+    image: mongo:7
+    container_name: catalogo-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: catalogo
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d:ro   # roda só quando o volume de dados está vazio
+      - ./scripts:/scripts:ro                    # scripts de demonstração (CRUD e consultas)
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # ---------------------------------------------------------------
+  # PostgreSQL: usado SÓ no comparativo com o relacional.
+  # Sobe apenas com:  docker compose --profile sql up -d
+  # ---------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: catalogo-postgres
+    profiles: ["sql"]
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: aluno
+      POSTGRES_PASSWORD: aluno
+      POSTGRES_DB: catalogo
+    volumes:
+      - ./sql/init:/docker-entrypoint-initdb.d:ro   # cria tabelas + carga
+      - ./sql:/sql:ro                               # consultas para demonstração
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  mongo_data:
+  pg_data:
